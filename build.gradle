@@ -10,10 +10,19 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation fileTree(dir: 'libs', includes: ['*jar'])
+    implementation files("${System.getProperty('java.home')}/../lib/tools.jar")
 }
 
-test {
-    useJUnitPlatform()
+jar {
+    manifest {
+        attributes([
+                "FMLCorePluginContainsFMLMod": "true",
+                "FMLCorePlugin": "com.example.examplemod.core.CoreLoader",
+                "Agent-Class": "miku.agent",
+                "Main-Class": "miku.agent"
+        ])
+    }
+    from{
+    }
 }
